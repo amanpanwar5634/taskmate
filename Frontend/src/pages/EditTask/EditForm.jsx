@@ -17,7 +17,7 @@ import axiosInstance from "../../service";
           title:data.title,
           description:data.description
         }
-        await axiosInstance.put(`task/updatetask/${taskId}`,TaskInfo)
+        await axiosInstance.put(`/task/updatetask/${taskId}`,TaskInfo)
       .then((res)=>{console.log(res.data.UdatedOne);
        if(res.data.UpdatedOne){
         toast.success("Task edited successfully");
