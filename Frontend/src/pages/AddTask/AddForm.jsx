@@ -24,8 +24,8 @@ import axiosInstance from "../../service";
        if(res.data.taskcreated){
         toast.success("Task added successfully");
         document.getElementById("my_modal_1").close();
-        setTimeout(()=>{window.location.reload();},1000);
-        
+        console.log("task added and module close");
+
        }
  
     })

@@ -3,7 +3,7 @@ import React from "react"
 import { Route,Routes } from "react-router-dom"
 import Home from "./pages/Home/Home"
  
-import AllTask from "./pages/All Task/AllTask"
+import AllTask from "./pages/AllTask/AllTask"
 import Signup from "./components/Signup"
 import {Toaster} from "react-hot-toast";
 import { useAuth } from "./components/AuthProvider"
