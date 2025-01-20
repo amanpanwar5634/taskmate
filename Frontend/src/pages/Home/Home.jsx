@@ -34,7 +34,7 @@ export default function Home() {
               visualize your workload with detailed timelines. Collaborate with team members, share
               updates, and ensure that no task is left behind.
             </p>
-            <Link to={authUser ? "/alltask" : "/signup"}>
+            <Link to={authUser?"/alltask":"/signup"}>
               <button className="btn btn-primary">Get Started</button>
             </Link>
           </div>

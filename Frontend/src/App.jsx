@@ -14,12 +14,9 @@ export default function App() {
      <>
       <Routes>
   <Route path="/" element={<Home />} />
-  <Route 
-    path="/alltask" 
-    element={<AllTask/>} 
-  />
+  <Route path="/alltask" element={<AllTask/>} />
   <Route path="/signup" element={<Signup />} />
-</Routes>
+      </Routes>
 
       <Toaster />
      </>

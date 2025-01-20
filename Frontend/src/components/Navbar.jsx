@@ -55,7 +55,6 @@ return (<>
     <ul className="menu menu-horizontal px-1 text-xl font-bold">
       <li><a href="/">Home</a></li>
       <li><a href="/alltask">All Task</a></li>
-      
       <li><a>About</a></li>
     </ul>
     <div className="hidden md:block">

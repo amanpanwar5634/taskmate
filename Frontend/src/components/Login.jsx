@@ -20,11 +20,7 @@ export default function Login(){
       password:data.password,
       email:data.email,
     }
-    await axiosInstance.post("/user/login", userInfo, {
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    })
+    await axiosInstance.post("/user/login", userInfo)
     .then((res)=>{console.log(res.data);
        if(res.data){
         toast.success("login successfully");
