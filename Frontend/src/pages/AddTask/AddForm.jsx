@@ -4,6 +4,7 @@ import {useForm} from "react-hook-form";
 import { useAuth } from "../../components/AuthProvider";
 import axios from "axios";
 import toast from "react-hot-toast";
+import axiosInstance from "../../service";
  export default function AddForm(){
   const[authUser,setAuthUser]=useAuth();
  
@@ -18,7 +19,7 @@ import toast from "react-hot-toast";
           title:data.title,
           description:data.description
         }
-        await axios.post("http://localhost:1000/task/create",TaskInfo,{headers: {id: authUser._id }})
+        await axiosInstance.post("/task/create",TaskInfo,{headers: {id: authUser._id }})
       .then((res)=>{console.log(res.data.taskcreated);
        if(res.data.taskcreated){
         toast.success("Task added successfully");
