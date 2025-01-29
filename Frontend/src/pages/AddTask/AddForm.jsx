@@ -27,13 +27,13 @@ export default function AddForm({ onTaskAdded }) {
 
             if (res.data.taskcreated) {
                 toast.success("Task added successfully");
-                onTaskAdded(res.data.task); // Notify parent component with the new task
                 document.getElementById("my_modal_1").close();
-                setTimeout(()=>{window.location.reload();},1000);
+                onTaskAdded(res.data.taskcreated); // Notify parent component with the new task
+                
+                
             }
         } catch (err) {
-            toast.error("Error adding task!");
-            console.error(err);
+            console.log("error->",err);
         }
     });
 
