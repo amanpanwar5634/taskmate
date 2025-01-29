@@ -63,12 +63,6 @@ export default function AllTaskContent() {
             <h2 className="text-xl md:text-2xl font-bold text-gray-600">
               Please log in to add and manage your tasks.
             </h2>
-            <button
-              className="mt-4 bg-pink-600 text-white px-6 py-2 rounded-lg hover:bg-pink-700 transition"
-              onClick={() => navigate("/login")}
-            >
-              Login
-            </button>
           </div>
         ) : isLoading ? (
           <div className="mt-8 text-center">
