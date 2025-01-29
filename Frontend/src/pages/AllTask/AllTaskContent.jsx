@@ -6,41 +6,40 @@ import { useNavigate } from "react-router-dom";
 
 export default function AllTaskContent() {
   const [authUser] = useAuth();
-  const [tasks, setTasks] = useState(null); // `null` to differentiate between "loading" and "empty"
-  const [isLoading, setIsLoading] = useState(true); // State to track loading
+  const [tasks, setTasks] = useState(null); // `null` means data is still loading
+  const [isLoading, setIsLoading] = useState(false); // Track loading state
   const [page, setPage] = useState(1); // Pagination state
   const navigate = useNavigate();
 
   useEffect(() => {
     const getTasks = async () => {
+      if (!authUser) return; // Stop fetching if user is not authenticated
+
       try {
-        if (authUser) {
-          setIsLoading(true); // Start loading state
+        setIsLoading(true);
 
-          // Load cached tasks first
-          const cachedTasks = localStorage.getItem("tasks");
-          if (cachedTasks) setTasks(JSON.parse(cachedTasks));
+        // Fetch cached tasks first
+        const cachedTasks = localStorage.getItem("tasks");
+        if (cachedTasks) setTasks(JSON.parse(cachedTasks));
 
-          // Fetch latest tasks from API
-          const res = await axiosInstance.get(`/task/alltask?limit=10&page=${page}`, {
-            headers: { id: authUser._id },
-          });
+        // Fetch latest tasks from API
+        const res = await axiosInstance.get(`/task/alltask?limit=10&page=${page}`, {
+          headers: { id: authUser._id },
+        });
 
-          setTasks(res.data.userData.tasks || []);
-          localStorage.setItem("tasks", JSON.stringify(res.data.userData.tasks));
-
-          setIsLoading(false); // Stop loading state
-        }
+        setTasks(res.data.userData.tasks || []);
+        localStorage.setItem("tasks", JSON.stringify(res.data.userData.tasks));
       } catch (err) {
         console.error("Error fetching tasks:", err);
+      } finally {
         setIsLoading(false);
       }
     };
 
     getTasks();
-  }, [authUser, page]); // Fetch when authUser changes or page updates
+  }, [authUser, page]);
 
-  // Memoize tasks to prevent unnecessary re-renders
+  // Memoized task cards
   const renderedTasks = useMemo(() => {
     return tasks ? tasks.map((item) => <Card key={item._id} item={item} />) : null;
   }, [tasks]);
@@ -58,8 +57,20 @@ export default function AllTaskContent() {
           Here, you'll find all your tasks, neatly organized and ready to be tackled.
         </p>
 
-        {/* Loading Indicator */}
-        {isLoading ? (
+        {/* If user is not logged in */}
+        {!authUser ? (
+          <div className="mt-8 text-center">
+            <h2 className="text-xl md:text-2xl font-bold text-gray-600">
+              Please log in to add and manage your tasks.
+            </h2>
+            <button
+              className="mt-4 bg-pink-600 text-white px-6 py-2 rounded-lg hover:bg-pink-700 transition"
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </button>
+          </div>
+        ) : isLoading ? (
           <div className="mt-8 text-center">
             <h2 className="text-xl md:text-2xl font-bold text-gray-600">Loading tasks...</h2>
           </div>
@@ -69,9 +80,7 @@ export default function AllTaskContent() {
           </div>
         ) : (
           <div className="mt-8">
-            <h2 className="text-xl md:text-2xl font-bold">
-              You don't have any tasks yet!
-            </h2>
+            <h2 className="text-xl md:text-2xl font-bold">You don't have any tasks yet!</h2>
             <p className="mt-4 text-gray-600">
               Start by adding a new task to stay on track and achieve your goals.
             </p>
@@ -79,7 +88,7 @@ export default function AllTaskContent() {
         )}
 
         {/* Pagination - Fetch More Tasks Button */}
-        {!isLoading && tasks && tasks.length > 0 && (
+        {authUser && !isLoading && tasks && tasks.length > 0 && (
           <div className="mt-6">
             <button
               className="bg-pink-600 text-white px-6 py-2 rounded-lg hover:bg-pink-700 transition"
