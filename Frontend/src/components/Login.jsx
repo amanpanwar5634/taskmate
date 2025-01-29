@@ -42,7 +42,7 @@ export default function Login(){
     <dialog id="my_modal_3" className="modal">
    <div className="modal-box">
     <form method="dialog" onSubmit={handleSubmit(onSubmit)} >
-      {/* if there is a button in form, it will close the modal */}
+     
       <Link to="/alltask"><button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
      onClick={()=>document.getElementById("my_modal_3").close()} >✕</button></Link>
    

@@ -6,23 +6,21 @@ import { useNavigate } from "react-router-dom";
 
 export default function AllTaskContent() {
   const [authUser] = useAuth();
-  const [tasks, setTasks] = useState(null); // `null` means data is still loading
-  const [isLoading, setIsLoading] = useState(false); // Track loading state
-  const [page, setPage] = useState(1); // Pagination state
+  const [tasks, setTasks] = useState(null);  
+  const [isLoading, setIsLoading] = useState(false);  
+  const [page, setPage] = useState(1);  
   const navigate = useNavigate();
 
   useEffect(() => {
     const getTasks = async () => {
-      if (!authUser) return; // Stop fetching if user is not authenticated
-
+      if (!authUser) return; 
       try {
         setIsLoading(true);
-
-        // Fetch cached tasks first
+ 
         const cachedTasks = localStorage.getItem("tasks");
         if (cachedTasks) setTasks(JSON.parse(cachedTasks));
 
-        // Fetch latest tasks from API
+ 
         const res = await axiosInstance.get(`/task/alltask?limit=10&page=${page}`, {
           headers: { id: authUser._id },
         });
@@ -38,8 +36,7 @@ export default function AllTaskContent() {
 
     getTasks();
   }, [authUser, page]);
-
-  // Memoized task cards
+ 
   const renderedTasks = useMemo(() => {
     return tasks ? tasks.map((item) => <Card key={item._id} item={item} />) : null;
   }, [tasks]);
@@ -56,8 +53,7 @@ export default function AllTaskContent() {
           No more missed deadlines or forgotten to-dos—stay on top of your work and achieve your goals!
           Here, you'll find all your tasks, neatly organized and ready to be tackled.
         </p>
-
-        {/* If user is not logged in */}
+ 
         {!authUser ? (
           <div className="mt-8 text-center">
             <h2 className="text-xl md:text-2xl font-bold text-gray-600">
@@ -80,8 +76,7 @@ export default function AllTaskContent() {
             </p>
           </div>
         )}
-
-        {/* Pagination - Fetch More Tasks Button */}
+ 
         {authUser && !isLoading && tasks && tasks.length > 0 && (
           <div className="mt-6">
             <button

@@ -8,7 +8,7 @@ export default function Logout(){
         setAuthUser({...authUser,user: null,});
         localStorage.removeItem("User");
         toast.success("logout successfully");
-         setTimeout(()=>{window.location.reload();//it show the case reload is needed after logout after this logout changes to login button thats whyit is use
+         setTimeout(()=>{window.location.reload(); 
          },1000);
         }
      catch(err){toast.error("error:"+ err.message);
