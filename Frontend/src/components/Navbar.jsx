@@ -41,16 +41,10 @@ return (<>
       </div>
       <ul
         tabIndex={0}
-        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow items-center">
+        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
         <li><a href="/">Home</a></li>
         <li><a href="/alltask">All Task</a></li>
-      <li><div>
-  {authUser?<Logout/>:
-  <div>
-    <a className="btn  bg-black text-white rounded-md px-5 py-1 hover:bg-slate-800 cursor-pointer"
-    onClick={()=>document.getElementById('my_modal_3').showModal()}>Login </a>
-    <Login/> </div>
-    } </div></li>
+      
        
       </ul>
     </div>
@@ -58,16 +52,10 @@ return (<>
   </div>
   <div className="navbar-end space-x-3">
   <div className="navbar-center hidden lg:flex">
-    <ul className="menu menu-horizontal px-1 text-xl font-bold items-center">
+    <ul className="menu menu-horizontal px-1 text-xl font-bold">
       <li><a href="/">Home</a></li>
       <li><a href="/alltask">All Task</a></li>
-      <li><div>
-  {authUser?<Logout/>:
-  <div>
-    <a className="btn  bg-black text-white rounded-md px-5 py-1 hover:bg-slate-800 cursor-pointer"
-    onClick={()=>document.getElementById('my_modal_3').showModal()}>Login </a>
-    <Login/> </div>
-    } </div></li>
+
     </ul>
     <div className="hidden md:block">
     </div >
@@ -76,7 +64,13 @@ return (<>
 </div>
   </div>
    
-  
+  <div>
+  {authUser?<Logout/>:
+  <div>
+    <a className="btn  bg-black text-white rounded-md px-5 py-1 hover:bg-slate-800 cursor-pointer"
+    onClick={()=>document.getElementById('my_modal_3').showModal()}>Login </a>
+    <Login/> </div>
+    } </div>
  </div>
  {authUser &&
 <div>
