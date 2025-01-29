@@ -66,27 +66,30 @@ export default function TaskCard({ item }) {
           {status}
         </span>
       </div>
-
-      {/* Actions */}
-      <div className="mt-5 flex justify-between">
-        <button
+      <div className="flex flex-row justify-between">
+        
+      <button
           onClick={() => handleStatusChange("In Progress")}
-          className="px-4 py-2 rounded-lg text-white bg-yellow-500 hover:bg-yellow-600 transition-all"
+          className="px-2 py-1 rounded-lg text-white bg-yellow-500 hover:bg-yellow-600 transition-all"
         >
           In Progress
         </button>
         <button
           onClick={() => handleStatusChange("Blocked")}
-          className="px-4 py-2 rounded-lg text-white bg-red-500 hover:bg-red-600 transition-all"
+          className="px-2 py-1 rounded-lg text-white bg-red-500 hover:bg-red-600 transition-all"
         >
           Blocked
         </button>
         <button
           onClick={() => handleStatusChange("Completed")}
-          className="px-4 py-2 rounded-lg text-white bg-green-500 hover:bg-green-600 transition-all"
+          className="px-2 py-1 rounded-lg text-white bg-green-500 hover:bg-green-600 transition-all"
         >
           Completed
         </button>
+
+      </div>
+      {/* Actions */}
+      <div className="mt-5 flex justify-between">
         <button
           onClick={() => document.getElementById("my_modal_4").showModal()}
           className="px-4 py-2 rounded-lg text-white bg-indigo-500 hover:bg-indigo-600 transition-all"
