@@ -3,43 +3,41 @@ import { useAuth } from "../../components/AuthProvider";
 import axiosInstance from "../../service";
 import Card from "./Card";
 import { useNavigate } from "react-router-dom";
+import AddForm from "./AddForm"; // Import AddForm component
 
 export default function AllTaskContent() {
+    const [authUser] = useAuth();
+    const [tasks, setTasks] = useState([]);
     const navigate = useNavigate();
-    const [authUser, setAuthUser] = useAuth();
-    const [task, setTask] = useState([]);
 
     useEffect(() => {
-        // Reload page after signup if flag is set
-        if (localStorage.getItem("reloadAfterSignup") === "true") {
-            localStorage.removeItem("reloadAfterSignup");
-            window.location.reload();
-        }
-
-        const getTask = async () => {
+        const getTasks = async () => {
             try {
                 if (authUser) {
-                    console.log("axiosInstance->",axiosInstance);
                     const res = await axiosInstance.get("/task/alltask", {
                         headers: { id: authUser._id },
                     });
-                       
-                    setTask(res.data.userData.tasks || []); // Set to an empty array if no tasks exist
+                    setTasks(res.data.userData.tasks || []); // Set to an empty array if no tasks exist
                 }
             } catch (err) {
                 console.error("Error fetching tasks:", err);
             }
         };
 
-        getTask();
+        getTasks();
     }, [authUser]); // Dependency ensures that the effect runs when `authUser` changes
+
+    // Function to update the task list dynamically
+    const addTaskToState = (newTask) => {
+        setTasks((prevTasks) => [...prevTasks, newTask]); // Add the new task to the list
+    };
 
     return (
         <div className="max-w-screen-2xl container mx-auto md:px-20 px-4">
-            <div className="mt-28 items-center justify-center text-center">
+            <div className="mt-28 text-center">
                 <h1 className="text-2xl md:text-4xl">
-                    Welcome to Your Task Manager! 
-                    <span className="text-pink-600">Let's Get Things Done :)</span>
+                    Welcome to Your Task Manager!
+                    <span className="text-pink-600"> Let's Get Things Done :)</span>
                 </h1>
                 <p className="mt-12 font-bold">
                     Organize, prioritize, and track your tasks with ease. 
@@ -47,10 +45,13 @@ export default function AllTaskContent() {
                     Here, you'll find all your tasks, neatly organized and ready to be tackled.
                 </p>
 
+                {/* Add Task Form */}
+                <AddForm onTaskAdded={addTaskToState} />
+
                 {/* Conditional Rendering */}
-                {task.length > 0 ? (
-                    <div className="mt-3 grid grid-cols-1 md:grid-cols-3">
-                        {task.map((item) => (
+                {tasks.length > 0 ? (
+                    <div className="mt-3 grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {tasks.map((item) => (
                             <Card key={item._id} item={item} />
                         ))}
                     </div>
