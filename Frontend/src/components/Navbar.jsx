@@ -5,11 +5,8 @@ import { useAuth } from "./AuthProvider";
 import Logout from "./Logout";
 
 export default function Navbar() {
-  // For authorization
   const [authUser, setAuthUser] = useAuth();
   console.log("from navbar->", authUser);
-
-  // Navbar Sticky on Scroll
   let [sticky, setSticky] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
@@ -28,11 +25,9 @@ export default function Navbar() {
         ${sticky ? "sticky-navbar bg-base-200 shadow-md dark:bg-slate-900 transition-all ease-in-out" : ""}`}
       >
         <div className="navbar flex items-center justify-between">
-          {/* Navbar Start */}
-          <div className="flex items-center">
-            {/* Dropdown for Small Screens */}
-            <div className="dropdown lg:hidden">
-              <button tabIndex={0} className="btn btn-ghost">
+         <div className="flex items-center">
+           <div className="dropdown lg:hidden">
+           <button tabIndex={0} className="btn btn-ghost">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
@@ -48,18 +43,12 @@ export default function Navbar() {
                 <li><a href="/alltask">All Task</a></li>
               </ul>
             </div>
-
-            {/* Brand Name */}
             <a className="text-2xl md:text-4xl font-bold">Task Mate</a>
           </div>
-
-          {/* Navbar Center - Only visible on large screens */}
           <div className="hidden lg:flex space-x-6">
             <a href="/" className="text-lg font-bold">Home</a>
             <a href="/alltask" className="text-lg font-bold">All Task</a>
           </div>
-
-          {/* Navbar End - Login & Add Task Buttons */}
           <div className="flex items-center space-x-3">
             {authUser ? (
               <>
