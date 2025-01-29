@@ -41,10 +41,11 @@ return (<>
       </div>
       <ul
         tabIndex={0}
-        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow items-center">
         <li><a href="/">Home</a></li>
         <li><a href="/alltask">All Task</a></li>
-      <li><a>About</a></li>
+        <li><a  className="btn  bg-black text-white rounded-md px-5 py-1 hover:bg-slate-800 cursor-pointer" 
+onClick={()=>document.getElementById('my_modal_1').showModal()}>addTask</a><AddForm/></li>
        
       </ul>
     </div>
@@ -55,7 +56,8 @@ return (<>
     <ul className="menu menu-horizontal px-1 text-xl font-bold">
       <li><a href="/">Home</a></li>
       <li><a href="/alltask">All Task</a></li>
-      <li><a>About</a></li>
+      <li><a  className="btn  bg-black text-white rounded-md px-5 py-1 hover:bg-slate-800 cursor-pointer items-center" 
+onClick={()=>document.getElementById('my_modal_1').showModal()}>addTask</a><AddForm/></li>
     </ul>
     <div className="hidden md:block">
     </div >
@@ -74,8 +76,7 @@ return (<>
  </div>
  {authUser &&
 <div>
-<a  className="btn  bg-black text-white rounded-md px-5 py-1 hover:bg-slate-800 cursor-pointer" 
-onClick={()=>document.getElementById('my_modal_1').showModal()}>addTask</a><AddForm/>
+
  </div>}
 </div>
 </div>
