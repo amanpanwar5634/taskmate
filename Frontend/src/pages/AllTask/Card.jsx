@@ -15,68 +15,60 @@ export default function TaskCard({ item }) {
     day: "2-digit",
   });
 
-  // Status Colors for UI
-  const statusColors = {
-    "To Do": "border-blue-500 bg-blue-100",
-    "In Progress": "border-yellow-500 bg-yellow-100",
-    "Blocked": "border-red-500 bg-red-100",
-    "Completed": "border-green-500 bg-green-100",
-  };
-
-  const deleteTask = async () => {
-    await axiosInstance
-      .delete(`/task/deletetask/${item._id}`, { headers: { id: authUser._id } })
-      .then((res) => {
-        if (res.data.deletedOne) {
-          toast.success("Task deleted successfully");
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
-        }
-      })
-      .catch((err) => {
-        if (err.response) {
-          toast.error("Error: " + err.response.data.message);
-        }
-      });
+  // Define status styles (colors, gradients)
+  const statusStyles = {
+    "To Do": "bg-gradient-to-r from-blue-500 to-blue-700 text-white",
+    "In Progress": "bg-gradient-to-r from-yellow-400 to-yellow-600 text-black",
+    "Blocked": "bg-gradient-to-r from-red-500 to-red-700 text-white",
+    "Completed": "bg-gradient-to-r from-green-500 to-green-700 text-white",
   };
 
   return (
-    <div
-      className={`mt-3 mb-3 p-3 w-full max-w-md shadow-xl rounded-md ${statusColors[status]} border-l-8`}
-    >
-      <div className="p-4">
-        <h2 className="text-xl font-bold">{item.title}</h2>
-        <p className="text-gray-700 mt-2">{item.description}</p>
-        <div className="flex justify-between items-center mt-3">
-          <span className="text-sm text-gray-500">{formattedDate}</span>
-        </div>
-        <div className="mt-4">
-          <label className="block text-sm font-semibold">Change Status:</label>
-          <select
-            className="mt-1 w-full p-2 border rounded"
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-          >
-            {Object.keys(statusColors).map((s) => (
-              <option key={s} value={s}>
-                {s}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="mt-4 flex justify-between">
+    <div className="max-w-md w-full mx-auto p-5 mb-6 bg-white shadow-lg rounded-lg border-l-8 border-gray-300 transition-all hover:shadow-2xl">
+      {/* Title & Description */}
+      <h2 className="text-2xl font-bold mb-2 text-gray-800">{item.title}</h2>
+      <p className="text-gray-600">{item.description}</p>
+
+      {/* Date */}
+      <div className="text-sm text-gray-400 mt-3">{formattedDate}</div>
+
+      {/* Status Selection Buttons */}
+      <div className="mt-4 flex flex-wrap gap-2">
+        {Object.keys(statusStyles).map((s) => (
           <button
-            onClick={() => document.getElementById("my_modal_4").showModal()}
-            className="btn btn-primary"
+            key={s}
+            onClick={() => setStatus(s)}
+            className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
+              status === s ? statusStyles[s] : "bg-gray-200 text-gray-600"
+            }`}
           >
-            Edit
+            {s}
           </button>
-          <EditForm taskId={item._id} />
-          <button onClick={deleteTask} className="btn btn-primary">
-            Delete
-          </button>
-        </div>
+        ))}
+      </div>
+
+      {/* Actions */}
+      <div className="mt-5 flex justify-between">
+        <button
+          onClick={() => document.getElementById("my_modal_4").showModal()}
+          className="px-4 py-2 rounded-lg text-white bg-indigo-500 hover:bg-indigo-600 transition-all"
+        >
+          Edit
+        </button>
+        <EditForm taskId={item._id} />
+        <button
+          onClick={() =>
+            axiosInstance.delete(`/task/deletetask/${item._id}`, {
+              headers: { id: authUser._id },
+            }).then(() => {
+              toast.success("Task deleted successfully");
+              setTimeout(() => window.location.reload(), 1000);
+            })
+          }
+          className="px-4 py-2 rounded-lg text-white bg-red-500 hover:bg-red-600 transition-all"
+        >
+          Delete
+        </button>
       </div>
     </div>
   );
