@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import EditForm from "../EditTask/EditForm";
 import { useAuth } from "../../components/AuthProvider";
 import axiosInstance from "../../service";
@@ -21,6 +21,20 @@ export default function TaskCard({ item }) {
     "In Progress": "border-yellow-500",
     "Blocked": "border-red-500",
     "Completed": "border-green-500",
+  };
+
+  // Load the status from localStorage if it exists
+  useEffect(() => {
+    const storedStatus = localStorage.getItem(`task-status-${item._id}`);
+    if (storedStatus) {
+      setStatus(storedStatus);
+    }
+  }, [item._id]);
+
+  // Handle status change and update localStorage
+  const handleStatusChange = (newStatus) => {
+    setStatus(newStatus);
+    localStorage.setItem(`task-status-${item._id}`, newStatus);
   };
 
   return (
@@ -55,6 +69,24 @@ export default function TaskCard({ item }) {
 
       {/* Actions */}
       <div className="mt-5 flex justify-between">
+        <button
+          onClick={() => handleStatusChange("In Progress")}
+          className="px-4 py-2 rounded-lg text-white bg-yellow-500 hover:bg-yellow-600 transition-all"
+        >
+          In Progress
+        </button>
+        <button
+          onClick={() => handleStatusChange("Blocked")}
+          className="px-4 py-2 rounded-lg text-white bg-red-500 hover:bg-red-600 transition-all"
+        >
+          Blocked
+        </button>
+        <button
+          onClick={() => handleStatusChange("Completed")}
+          className="px-4 py-2 rounded-lg text-white bg-green-500 hover:bg-green-600 transition-all"
+        >
+          Completed
+        </button>
         <button
           onClick={() => document.getElementById("my_modal_4").showModal()}
           className="px-4 py-2 rounded-lg text-white bg-indigo-500 hover:bg-indigo-600 transition-all"
