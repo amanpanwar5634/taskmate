@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../../components/AuthProvider";
 import axiosInstance from "../../service";
 import Card from "./Card";
-import { useNavigate } from "react-router-dom";
-import AddForm from "./AddForm"; // Import AddForm component
-
+import { useNavigate } from "react-router-dom"; 
 export default function AllTaskContent() {
     const [authUser] = useAuth();
     const [tasks, setTasks] = useState([]);
@@ -27,10 +25,7 @@ export default function AllTaskContent() {
         getTasks();
     }, [authUser]); // Dependency ensures that the effect runs when `authUser` changes
 
-    // Function to update the task list dynamically
-    const addTaskToState = (newTask) => {
-        setTasks((prevTasks) => [...prevTasks, newTask]); // Add the new task to the list
-    };
+   
 
     return (
         <div className="max-w-screen-2xl container mx-auto md:px-20 px-4">
@@ -45,9 +40,7 @@ export default function AllTaskContent() {
                     Here, you'll find all your tasks, neatly organized and ready to be tackled.
                 </p>
 
-                {/* Add Task Form */}
-                <AddForm onTaskAdded={addTaskToState} />
-
+                
                 {/* Conditional Rendering */}
                 {tasks.length > 0 ? (
                     <div className="mt-3 grid grid-cols-1 md:grid-cols-3 gap-6">
