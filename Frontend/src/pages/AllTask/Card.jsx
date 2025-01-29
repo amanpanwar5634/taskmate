@@ -48,7 +48,7 @@ export default function TaskCard({ item }) {
       <p className="text-gray-600">{item.description}</p>
 
       {/* Date */}
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-row justify-between items-center">
       <div className="text-sm text-gray-400 mt-3">{formattedDate}</div>
 
 {/* Status Indicator */}
@@ -92,7 +92,7 @@ export default function TaskCard({ item }) {
 
       </div>
       {/* Actions */}
-      <hr></hr>
+      <hr className="mt-3"></hr>
       <div className="mt-5 flex justify-between">
         <button
           onClick={() => document.getElementById("my_modal_4").showModal()}
