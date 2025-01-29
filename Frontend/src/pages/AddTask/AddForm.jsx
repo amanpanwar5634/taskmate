@@ -29,7 +29,7 @@ export default function AddForm({ onTaskAdded }) {
                 toast.success("Task added successfully");
                 document.getElementById("my_modal_1").close();
                 onTaskAdded(res.data.taskcreated); // Notify parent component with the new task
-                
+                setTimeout(()=>{window.location.reload();},1000);
                 
             }
         } catch (err) {
