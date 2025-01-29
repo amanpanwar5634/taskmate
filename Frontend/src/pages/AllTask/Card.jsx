@@ -69,7 +69,7 @@ export default function TaskCard({ item }) {
 </div>
       </div>
       
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-row justify-between mt-3">
         
       <button
           onClick={() => handleStatusChange("In Progress")}
