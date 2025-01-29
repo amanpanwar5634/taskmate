@@ -48,24 +48,27 @@ export default function TaskCard({ item }) {
       <p className="text-gray-600">{item.description}</p>
 
       {/* Date */}
+      <div className="flex flex-row justify-between">
       <div className="text-sm text-gray-400 mt-3">{formattedDate}</div>
 
-      {/* Status Indicator */}
-      <div className="mt-4 flex items-center">
-        <span
-          className={`inline-block px-3 py-1 text-sm font-semibold rounded-full ${
-            status === "To Do"
-              ? "bg-blue-100 text-blue-700"
-              : status === "In Progress"
-              ? "bg-yellow-100 text-yellow-700"
-              : status === "Blocked"
-              ? "bg-red-100 text-red-700"
-              : "bg-green-100 text-green-700"
-          }`}
-        >
-          {status}
-        </span>
+{/* Status Indicator */}
+<div className="mt-4 flex items-center">
+  <span
+    className={`inline-block px-3 py-1 text-sm font-semibold rounded-full ${
+      status === "To Do"
+        ? "bg-blue-100 text-blue-700"
+        : status === "In Progress"
+        ? "bg-yellow-100 text-yellow-700"
+        : status === "Blocked"
+        ? "bg-red-100 text-red-700"
+        : "bg-green-100 text-green-700"
+    }`}
+  >
+    {status}
+  </span>
+</div>
       </div>
+      
       <div className="flex flex-row justify-between">
         
       <button
@@ -89,10 +92,11 @@ export default function TaskCard({ item }) {
 
       </div>
       {/* Actions */}
+      <hr></hr>
       <div className="mt-5 flex justify-between">
         <button
           onClick={() => document.getElementById("my_modal_4").showModal()}
-          className="px-4 py-2 rounded-lg text-white bg-indigo-500 hover:bg-indigo-600 transition-all"
+          className="btn btn-primary text-white"
         >
           Edit
         </button>
@@ -106,7 +110,7 @@ export default function TaskCard({ item }) {
               setTimeout(() => window.location.reload(), 1000);
             })
           }
-          className="px-4 py-2 rounded-lg text-white bg-red-500 hover:bg-red-600 transition-all"
+          className=" btn btn-error text-white"
         >
           Delete
         </button>
