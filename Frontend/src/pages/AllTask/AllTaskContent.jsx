@@ -11,20 +11,10 @@ export default function AllTaskContent() {
 
   useEffect(() => {
     const getTasks = async () => {
-      try {
-        if (authUser) {
-          const res = await axiosInstance.get("/task/alltask", {
-            headers: { id: authUser._id },
-          });
-          setTasks(res.data.userData.tasks || []); // Set to an empty array if no tasks exist
-        }
-      } catch (err) {
-        console.error("Error fetching tasks:", err);
-      }
-    };
-
-    getTasks();
-  }, [authUser]); // Dependency ensures that the effect runs when `authUser` changes
+      try { if (authUser) { const res = await axiosInstance.get("/task/alltask", {headers: { id: authUser._id }, });
+         setTasks(res.data.userData.tasks || []); }
+      } catch (err) { console.error("Error fetching tasks:", err); } };
+    getTasks();}, [authUser]); // Dependency ensures that the effect runs when `authUser` changes
 
   return (
     <div className="max-w-screen-2xl container mx-auto md:px-20 px-4">

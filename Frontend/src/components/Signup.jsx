@@ -73,7 +73,7 @@ export default function Signup() {
               <br></br><p className="text-red-600 mt-2">{errors.password && <span>This field is required</span>}</p>
             </div>
             <div className="flex flex-cols-1 md:flex-cols-2 px-4 py-1 justify justify-between mt-3">
-              <div><button className="mx-2 bg-pink-600 text-white font-bold px-4 py-1 rounded-md">Signup</button></div>
+              <div><button className="btn btn-primary">Signup</button></div>
                 
             </div>
           </form>

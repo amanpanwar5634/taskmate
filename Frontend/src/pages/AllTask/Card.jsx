@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 export default function TaskCard({ item }) {
   const [authUser] = useAuth();
-  const [status, setStatus] = useState("To Do"); // Default status
+  const [status, setStatus] = useState("To Do");  
 
   const date = new Date(item.createdAT);
   const formattedDate = date.toLocaleDateString("en-GB", {
@@ -14,8 +14,7 @@ export default function TaskCard({ item }) {
     month: "2-digit",
     day: "2-digit",
   });
-
-  // Define border colors for different statuses
+ 
   const statusBorderColors = {
     "To Do": "border-blue-500",
     "In Progress": "border-yellow-500",
@@ -73,45 +72,30 @@ export default function TaskCard({ item }) {
         
       <button
           onClick={() => handleStatusChange("In Progress")}
-          className="px-2 py-1 rounded-lg text-white bg-yellow-500 hover:bg-yellow-600 transition-all"
-        >
-          In Progress
-        </button>
+          className="px-2 py-1 rounded-lg text-white bg-yellow-500 hover:bg-yellow-600 transition-all" > In Progress</button>
         <button
-          onClick={() => handleStatusChange("Blocked")}
-          className="px-2 py-1 rounded-lg text-white bg-red-500 hover:bg-red-600 transition-all"
-        >
-          Blocked
-        </button>
+        onClick={() => handleStatusChange("Blocked")}
+          className="px-2 py-1 rounded-lg text-white bg-red-500 hover:bg-red-600 transition-all" > Blocked </button>
         <button
           onClick={() => handleStatusChange("Completed")}
-          className="px-2 py-1 rounded-lg text-white bg-green-500 hover:bg-green-600 transition-all"
-        >
-          Completed
-        </button>
-
+          className="px-2 py-1 rounded-lg text-white bg-green-500 hover:bg-green-600 transition-all"> Completed</button>
       </div>
       {/* Actions */}
       <hr className="mt-3"></hr>
       <div className="mt-5 flex justify-between">
         <button
           onClick={() => document.getElementById("my_modal_4").showModal()}
-          className="btn btn-primary text-white"
-        >
-          Edit
-        </button>
+         className="btn btn-primary text-white" > Edit</button>
         <EditForm taskId={item._id} />
         <button
           onClick={() =>
-            axiosInstance.delete(`/task/deletetask/${item._id}`, {
-              headers: { id: authUser._id },
-            }).then(() => {
+            axiosInstance.delete(`/task/deletetask/${item._id}`, { headers: { id: authUser._id }, })
+            .then(() => {
               toast.success("Task deleted successfully");
               setTimeout(() => window.location.reload(), 1000);
             })
           }
-          className=" btn btn-error text-white"
-        >
+          className=" btn btn-error text-white" >
           Delete
         </button>
       </div>
