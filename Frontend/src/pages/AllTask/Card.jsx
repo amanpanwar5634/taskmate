@@ -15,16 +15,20 @@ export default function TaskCard({ item }) {
     day: "2-digit",
   });
 
-  // Define status styles (colors, gradients)
-  const statusStyles = {
-    "To Do": "bg-gradient-to-r from-blue-500 to-blue-700 text-white",
-    "In Progress": "bg-gradient-to-r from-yellow-400 to-yellow-600 text-black",
-    "Blocked": "bg-gradient-to-r from-red-500 to-red-700 text-white",
-    "Completed": "bg-gradient-to-r from-green-500 to-green-700 text-white",
+  // Define border colors for different statuses
+  const statusBorderColors = {
+    "To Do": "border-blue-500",
+    "In Progress": "border-yellow-500",
+    "Blocked": "border-red-500",
+    "Completed": "border-green-500",
   };
 
   return (
-    <div className="max-w-md w-full mx-auto p-5 mb-6 bg-white shadow-lg rounded-lg border-l-8 border-gray-300 transition-all hover:shadow-2xl">
+    <div
+      className={`max-w-md w-full mx-auto p-5 mb-6 bg-white shadow-lg rounded-lg border-l-8 ${
+        statusBorderColors[status] || "border-gray-300"
+      } transition-all hover:shadow-2xl`}
+    >
       {/* Title & Description */}
       <h2 className="text-2xl font-bold mb-2 text-gray-800">{item.title}</h2>
       <p className="text-gray-600">{item.description}</p>
@@ -32,19 +36,21 @@ export default function TaskCard({ item }) {
       {/* Date */}
       <div className="text-sm text-gray-400 mt-3">{formattedDate}</div>
 
-      {/* Status Selection Buttons */}
-      <div className="mt-4 flex flex-wrap gap-2">
-        {Object.keys(statusStyles).map((s) => (
-          <button
-            key={s}
-            onClick={() => setStatus(s)}
-            className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
-              status === s ? statusStyles[s] : "bg-gray-200 text-gray-600"
-            }`}
-          >
-            {s}
-          </button>
-        ))}
+      {/* Status Indicator */}
+      <div className="mt-4 flex items-center">
+        <span
+          className={`inline-block px-3 py-1 text-sm font-semibold rounded-full ${
+            status === "To Do"
+              ? "bg-blue-100 text-blue-700"
+              : status === "In Progress"
+              ? "bg-yellow-100 text-yellow-700"
+              : status === "Blocked"
+              ? "bg-red-100 text-red-700"
+              : "bg-green-100 text-green-700"
+          }`}
+        >
+          {status}
+        </span>
       </div>
 
       {/* Actions */}
